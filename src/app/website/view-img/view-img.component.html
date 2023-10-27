@@ -1,0 +1,41 @@
+<div>
+    <div
+        class="px-6 py-20 sm:py-32 md:px-32 text-center flex justify-center gap-10 items-center relative max-w-[1800px] mx-auto">
+        <div>
+            <div class="font-bold text-2xl md:text-4xl leading-9 text-gray-500"><span
+                    class="text-[#3F92BD]">Image</span>
+                Viewer
+            </div>
+
+            <div class="mt-6 leading-7 md:leading-8 text-[#46535F] max-w-[480px] mx-auto">Supported images includes:
+                .png, .jpg, .jpeg, .webp, .ico, .gif, .tiff, .raw, .eps, .avif,
+                .apng
+            </div>
+            <div
+                class="max-w-[1000px] w-full min-h-[300px] mt-6 mx-auto p-2 rounded border border-dotted border-[#3F92BD] relative flex items-center justify-center">
+                <img *ngIf="imageUrl" [src]="imageUrl" id="outImage" class="h-auto" alt="">
+                <img *ngIf="!imageUrl" [src]="'assets/images/icons/img-icon.webp'" id="outImage" class="w-20" alt="">
+                <div class="absolute bottom-5 -right-5 bg-[#3F92BD] rounded-sm text-sm font-semibold font-mono px-1.5 py-0.5 text-white uppercase"
+                    *ngIf="imageType">
+                    {{imageType}}
+                </div>
+            </div>
+            <div class="mt-12">
+                <input type="file" name="" id="inputImage" class="hidden"
+                    accept=".png, .jpg, .jpeg, .svg, .webp, .ico, .gif, .tiff, .raw, .eps, .avif, .apng"
+                    (change)="selectImg($event)">
+                <label for="inputImage" class="flex items-center justify-center">
+                    <div class="
+                        bg-[#3F92BD] whitespace-nowrap text-white border cursor-pointer md:text-base rounded-lg text-normal shadow-none py-[0.5rem] px-[0.7rem] md:py-[0.7rem] md:px-[1rem] outline-0
+                      ">Select an image
+                    </div>
+                </label>
+                <p class="text-[#46535F] text-sm my-4">or drop image here</p>
+            </div>
+        </div>
+        <img src="assets/images/icons/triangle.png" class="absolute w-6 left-32" alt="">
+        <img src="assets/images/icons/circle.png" class="absolute w-2 left-40 bottom-36" alt="">
+        <img src="assets/images/icons/square-sm.png" class="absolute w-2 right-40" alt="">
+        <img src="assets/images/icons/square-lg.png" class="absolute w-5 right-36 bottom-32" alt="">
+    </div>
+</div>

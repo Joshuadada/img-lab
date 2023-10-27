@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.footer-bg{
+    background-image: url('assets/images/footer_background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.text-primary{
+    color: #3F92BD;
+}

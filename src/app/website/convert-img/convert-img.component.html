@@ -1,0 +1,129 @@
+<div>
+    <div
+        class="px-6 py-20 sm:py-32 md:py-36 md:px-32 text-center flex justify-center gap-10 items-center relative max-w-[1800px] mx-auto">
+        <div class="max-w-[480px]">
+            <div class="font-bold text-2xl md:text-4xl leading-9 text-gray-500">Convert <span
+                    class="text-[#3F92BD]">Image</span>
+                format
+            </div>
+            <div class="mt-6 leading-7 md:leading-8 text-[#46535F]">Convert your image to another format in just one
+                click (.png, .jpg, .jpeg, .webp, .ico, .gif, .tiff, .raw, .eps, .avif,
+                .apng).
+            </div>
+            <div class="mt-12">
+                <input type="file" name="" id="inputImage" class="hidden"
+                    accept=".png, .jpg, .jpeg, .svg, .webp, .ico, .gif, .tiff, .raw, .eps, .avif, .apng"
+                    (change)="selectImg($event)">
+                <label for="inputImage" class="flex items-center justify-center">
+                    <div
+                        class="bg-[#3F92BD] flex justify-center items-center text-white p-[8px_14px] sm:p-[10px_20px] md:p-[12px_32px] rounded-sm cursor-pointer text-sm md:text-base max-w-[400px]">
+                        Select an image</div>
+                </label>
+                <p class="text-[#46535F] text-sm my-4">or drop image here</p>
+            </div>
+        </div>
+        <img src="assets/images/icons/triangle.png" class="absolute w-6 left-32" alt="">
+        <img src="assets/images/icons/circle.png" class="absolute w-2 left-40 bottom-36" alt="">
+        <img src="assets/images/icons/square-sm.png" class="absolute w-2 right-40" alt="">
+        <img src="assets/images/icons/square-lg.png" class="absolute w-5 right-36 bottom-32" alt="">
+    </div>
+</div>
+<div class="fixed h-full w-[400px] bg-white top-0 right-0 shadow-md z-20 overflow-y-auto"
+    [ngClass]="converterModal ? 'block' : 'hidden'">
+    <!-- <div class="flex justify-center items-center h-8 w-8 rounded-full mt-6 mr-6 ml-auto bg-gray-400 hover:bg-gray-600 text-white cursor-pointer"
+        title="cancel" (click)="converterModal = false">
+        <span class="font-bold">&times;</span>
+    </div> -->
+    <div class="mt-6">
+        <h3
+            class="text-center font-semibold text-lg md:text-2xl font-mono text-gray-600 border-dotted border-b border-[#3F92BD] pb-2">
+            IMAGE CONVERTER</h3>
+        <div class="h-[250px] w-[250px] relative mx-auto">
+            <div class="h-full w-full rounded shadow border mt-12 overflow-hidden">
+                <img [src]="imageUrl" id="outImage" class="h-full w-full object-cover" alt="">
+            </div>
+            <div
+                class="absolute bottom-5 -right-5 bg-[#3F92BD] rounded-sm text-sm font-semibold font-mono px-1.5 py-0.5 text-white uppercase">
+                {{imageType}}
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-6 mx-9 mt-12" [formGroup]="imageForm">
+            <div *ngIf="!imageType?.includes('ico')">
+                <input type="radio" name="imageType" formControlName="imageType" id="favicon" value="favicon"
+                    class="hidden peer">
+                <label for="favicon"
+                    class="border border-[#3F92BD] rounded-md text-sm font-semibold font-mono px-4 py-2 active:px-[15px] active:py-[7px] cursor-pointer text-[#3F92BD] peer-checked:bg-[#3F92BD] peer-checked:text-white">FAVICON</label>
+            </div>
+            <div *ngIf="!imageType?.includes('webp')">
+                <input type="radio" name="imageType" formControlName="imageType" id="webp" value="webp"
+                    class="hidden peer">
+                <label for="webp"
+                    class="border border-[#3F92BD] rounded-md text-sm font-semibold font-mono px-4 py-2 active:px-[15px] active:py-[7px] cursor-pointer text-[#3F92BD]  peer-checked:bg-[#3F92BD] peer-checked:text-white">WEBP</label>
+            </div>
+            <div *ngIf="imageType !== 'png'">
+                <input type="radio" name="imageType" formControlName="imageType" id="png" value="png"
+                    class="hidden peer">
+                <label for="png"
+                    class="border border-[#3F92BD] rounded-md text-sm font-semibold font-mono px-4 py-2 active:px-[15px] active:py-[7px] cursor-pointer text-[#3F92BD]  peer-checked:bg-[#3F92BD] peer-checked:text-white">PNG</label>
+            </div>
+            <div *ngIf="!imageType?.includes('jpg') && !imageType?.includes('jpeg')">
+                <input type="radio" name="imageType" formControlName="imageType" id="jpg" value="jpg"
+                    class="hidden peer">
+                <label for="jpg"
+                    class="border border-[#3F92BD] rounded-md text-sm font-semibold font-mono px-4 py-2 active:px-[15px] active:py-[7px] cursor-pointer text-[#3F92BD]  peer-checked:bg-[#3F92BD] peer-checked:text-white">JPG</label>
+            </div>
+            <div *ngIf="!imageType?.includes('tiff')">
+                <input type="radio" name="imageType" formControlName="imageType" id="tiff" value="tiff"
+                    class="hidden peer">
+                <label for="tiff"
+                    class="border border-[#3F92BD] rounded-md text-sm font-semibold font-mono px-4 py-2 active:px-[15px] active:py-[7px] cursor-pointer text-[#3F92BD]  peer-checked:bg-[#3F92BD] peer-checked:text-white">TiFF</label>
+            </div>
+            <div *ngIf="!imageType?.includes('gif')">
+                <input type="radio" name="imageType" formControlName="imageType" id="gif" value="gif"
+                    class="hidden peer">
+                <label for="gif"
+                    class="border border-[#3F92BD] rounded-md text-sm font-semibold font-mono px-4 py-2 active:px-[15px] active:py-[7px] cursor-pointer text-[#3F92BD]  peer-checked:bg-[#3F92BD] peer-checked:text-white">GIF</label>
+            </div>
+            <div *ngIf="!imageType?.includes('postscript')">
+                <input type="radio" name="imageType" formControlName="imageType" id="eps" value="eps"
+                    class="hidden peer">
+                <label for="eps"
+                    class="border border-[#3F92BD] rounded-md text-sm font-semibold font-mono px-4 py-2 active:px-[15px] active:py-[7px] cursor-pointer text-[#3F92BD]  peer-checked:bg-[#3F92BD] peer-checked:text-white">EPS</label>
+            </div>
+            <div *ngIf="!imageType?.includes('avif')">
+                <input type="radio" name="imageType" formControlName="imageType" id="avif" value="avif"
+                    class="hidden peer">
+                <label for="avif"
+                    class="border border-[#3F92BD] rounded-md text-sm font-semibold font-mono px-4 py-2 active:px-[15px] active:py-[7px] cursor-pointer text-[#3F92BD]  peer-checked:bg-[#3F92BD] peer-checked:text-white">AVIF</label>
+            </div>
+            <div *ngIf="!imageType?.includes('apng')">
+                <input type="radio" name="imageType" formControlName="imageType" id="apng" value="apng"
+                    class="hidden peer">
+                <label for="apng"
+                    class="border border-[#3F92BD] rounded-md text-sm font-semibold font-mono px-4 py-2 active:px-[15px] active:py-[7px] cursor-pointer text-[#3F92BD]  peer-checked:bg-[#3F92BD] peer-checked:text-white">APNG</label>
+            </div>
+            <!-- <div *ngIf="!imageType?.includes('svg')">
+                <input type="radio" name="imageType" formControlName="imageType" id="svg" value="svg"
+                    class="hidden peer">
+                <label for="svg"
+                    class="border border-[#3F92BD] rounded-md text-sm font-semibold font-mono px-4 py-2 active:px-[15px] active:py-[7px] cursor-pointer text-[#3F92BD]  peer-checked:bg-[#3F92BD] peer-checked:text-white">SVG</label>
+            </div> -->
+        </div>
+        <div class="flex items-center justify-center gap-4 mt-24">
+            <app-button [overRideButtonClass]="true" [buttonText]="'Generate'" [disabled]="imageForm.invalid"
+                (buttonClick)="convertImage()" [customClass]="
+                    'bg-[#3F92BD] whitespace-nowrap text-white border cursor-pointer md:text-base rounded-lg text-normal shadow-none py-[0.5rem] px-[0.7rem] md:py-[0.7rem] md:px-[1rem] w-full outline-0'
+                  ">
+            </app-button>
+        </div>
+        <div class="mt-4 mx-9" *ngIf="isSuccessful">
+            <img src="assets/images/icons/success.gif" class="w-32 block mx-auto" alt="">
+            <div class="text-center">{{imageForm.get('imageType')?.value.toUpperCase()}} Image generated successfully,
+                <span class="text-[#3F92BD] font-bold cursor-pointer" (click)="downloadImage()">Download</span>
+            </div>
+        </div>
+    </div>
+    <div class="h-6 w-6 rounded-full border bg-[#3F92BD] absolute top-1/2 bottom-1/2 -ml-4">
+    </div>
+</div>
